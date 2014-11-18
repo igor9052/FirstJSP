@@ -5,19 +5,19 @@
 
     <form action="EmployeeAction" method="post">
         <p>
-            Name: <input type="text" name="name" value=""/>
+            <label for="name">Name: </label><input type="text" id="name" name="name" value=""/>
         </p>
 
         <p>
-            Age: <input type="text" name="age" value=""/>
+            <label for="age">Age: </label><input type="text" id="age" name="age" value=""/>
         </p>
 
         <p>
-            Email: <input type="text" name="email" value=""/>
+            <label for="email"> Email: </label><input type="text" id="email" name="email" value=""/>
         </p>
 
         <p>
-            Department: <input type="text" name="departmentId" value=""/>
+            <label for="departmentId">Department: </label><input type="text" id="departmentId" name="departmentId" value=""/>
         </p>
         <input type="submit" value="Save"/>
         <input type="hidden" name="action" value="create"/>

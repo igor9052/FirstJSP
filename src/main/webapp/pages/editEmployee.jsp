@@ -8,19 +8,19 @@
 <section id="content">
     <form action="EmployeeAction" method="post">
         <p>
-            Name: <input type="text" name="name" value="${param.name}"/>
+            <label for="name">Name: </label><input type="text" id="name" name="name" value="${param.name}"/>
         </p>
 
         <p>
-            Age: <input type="text" name="age" value="${param.age}"/>
+            <label for="age">Age: </label><input type="text" id="age" name="age" value="${param.age}"/>
         </p>
 
         <p>
-            Email: <input type="text" name="email" value="${param.email}"/>
+            <label for="email">Email: </label><input type="text" id="email" name="email" value="${param.email}"/>
         </p>
 
         <p>
-            Department: <input type="text" name="departmentId" value="${param.departmentId}" readonly/>
+            <label for="departmentId">Department: </label><input type="text" id="departmentId" name="departmentId" value="${param.departmentId}" />
         </p>
         <input type="hidden" name="id" value="${param.id}" readonly/>
         <input type="hidden" name="action" value="update"/>

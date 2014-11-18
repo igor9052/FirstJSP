@@ -11,7 +11,7 @@
     <c:out value="${requestScope.e}"/>
 
     <p>
-        <a href="listEmployee.jsp"><input type="button" value="Back to list of Employees"/></a>
+        <a href="${requestScope.page}"><input type="button" value="Back"/></a>
     </p>
 
 </section>

@@ -6,7 +6,7 @@
 <%@include file="../WEB-INF/jspf/header.jsp" %>
 
 <jsp:useBean id="employeeDAO" class="ua.com.igorka.source_it.homework13.dao.impl.EmployeeDAOImpl"
-             scope="application"/>
+             scope="session"/>
 
 <section id="content">
     <table border="2" width="900">
@@ -55,7 +55,7 @@
         <form class="form_inline" action="createEmployee.jsp" method="post">
             <input type="submit" value="Create new employee"/>
         </form>
-        <a href="listEmployee.jsp"><input type="button" value="Back to list of Employees"/></a>
+        <a href="../index.jsp"><input type="button" value="Back to start page"/></a>
     </div>
 </section>
 <!-- content section end -->
