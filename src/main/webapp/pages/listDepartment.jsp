@@ -2,8 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../WEB-INF/jspf/header.jsp" %>
 
-<section id="content">
+<%--<c:if test="${empty requestScope.departmentList}">--%>
+    <%--<c:redirect url="/pages/ListDepartment" />--%>
+<%--</c:if>--%>
 
+<section id="content">
     <table border="2" width="600">
         <tr>
             <th>ID</th>
