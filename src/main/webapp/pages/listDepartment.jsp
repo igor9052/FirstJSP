@@ -3,8 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../WEB-INF/jspf/header.jsp" %>
 
-<jsp:useBean id="departmentDAO" class="ua.com.igorka.source_it.homework13.dao.impl.DepartmentDAOImpl" scope="session"/>
-
+<jsp:useBean id="departmentDAO" class="ua.com.igorka.source_it.homework13.dao.impl.DepartmentDAOImpl" scope="request"/>
+<jsp:useBean id="departmentList" class="java.util.List<Depa>" scope="request"/>
 <section id="content">
 
     <table border="2" width="600">

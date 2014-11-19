@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by igor on 18.11.14
@@ -33,22 +34,18 @@ public class EmployeeCRUDServlet extends HttpServlet {
     private void doAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
+
         switch (request.getParameter("action").toLowerCase()) {
             case "create":
                 try {
-                    Employee newEmployee = new Employee();
-                    newEmployee.setName(request.getParameter("name"));
-                    newEmployee.setAge(Integer.parseInt(request.getParameter("age")));
-                    newEmployee.setEmail(request.getParameter("email"));
-                    newEmployee.setDepartmentId(Long.parseLong(request.getParameter("departmentId")));
-
-                    employeeDAO.insert(newEmployee);
-
+                    employeeDAO.insert(requestParamsToEmployee(request, response));
                     request.setAttribute("message", "Employee " + request.getParameter("name") + " was successfully created.");
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     request.setAttribute("message", "ERROR. Employee " + request.getParameter("name") + " was NOT created.");
                     request.setAttribute("e", e.getMessage());
+
                 }
                 finally {
                     request.setAttribute("action", "Creating...");
@@ -58,17 +55,8 @@ public class EmployeeCRUDServlet extends HttpServlet {
                 break;
             case "update":
                 try {
-                    Employee newEmployee = new Employee();
-                    newEmployee.setId(Long.parseLong(request.getParameter("id")));
-                    newEmployee.setName(request.getParameter("name"));
-                    newEmployee.setAge(Integer.parseInt(request.getParameter("age")));
-                    newEmployee.setEmail(request.getParameter("email"));
-                    newEmployee.setDepartmentId(Long.parseLong(request.getParameter("departmentId")));
-
-                    employeeDAO.update(newEmployee);
-
+                    employeeDAO.update(requestParamsToEmployee(request, response));
                     request.setAttribute("message", "Employee " + request.getParameter("name") + " was successfully updated.");
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                     request.setAttribute("message", "ERROR. Employee " + request.getParameter("name") + " was NOT created.");
@@ -100,6 +88,44 @@ public class EmployeeCRUDServlet extends HttpServlet {
                 request.getRequestDispatcher("message.jsp").forward(request, response);
             }
         }
+    }
+
+    private Employee requestParamsToEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Employee newEmployee = new Employee();
+        try {
+            if ("update".equals(request.getParameter("action").toLowerCase())) {
+                if (StringUtils.isNumeric(request.getParameter("id"))) {
+                    newEmployee.setDepartmentId(Long.parseLong(request.getParameter("id")));
+                }
+                else {
+                    request.setAttribute("message", "ID must be a number.");
+                    forward(request, response);
+                }
+            }
+            newEmployee.setName(request.getParameter("name"));
+            if (StringUtils.isNumeric(request.getParameter("age"))) {
+                newEmployee.setAge(Integer.parseInt(request.getParameter("age")));
+            }
+            else {
+                request.setAttribute("message", "Age must be a number.");
+                forward(request, response);
+            }
+            newEmployee.setEmail(request.getParameter("email"));
+            if (StringUtils.isNumeric(request.getParameter("departmentId"))) {
+                newEmployee.setDepartmentId(Long.parseLong(request.getParameter("departmentId")));
+            }
+            else {
+                request.setAttribute("message", "Department ID must be a number.");
+                forward(request, response);
+            }
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            request.setAttribute("message", "ERROR. Employee " + request.getParameter("name") + " was NOT created.");
+            request.setAttribute("e", e.getMessage());
+            forward(request, response);
+        }
+        return newEmployee;
     }
 
     private void forward(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

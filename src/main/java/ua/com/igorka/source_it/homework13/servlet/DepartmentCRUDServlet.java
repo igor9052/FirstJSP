@@ -32,9 +32,7 @@ public class DepartmentCRUDServlet extends HttpServlet {
         switch (request.getParameter("action").toLowerCase()) {
             case "create":
                 try {
-                    Department newDepartment = new Department();
-                    newDepartment.setName(request.getParameter("name"));
-                    departmentDAO.insert(newDepartment);
+                    departmentDAO.insert(requestParamsToDepartment(request, response));
                     request.setAttribute("message", "Department " + request.getParameter("name") + " was successfully created.");
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -47,10 +45,7 @@ public class DepartmentCRUDServlet extends HttpServlet {
                 break;
             case "update":
                 try {
-                    Department newDepartment = new Department();
-                    newDepartment.setId(Long.parseLong(request.getParameter("id")));
-                    newDepartment.setName(request.getParameter("name"));
-                    departmentDAO.update(newDepartment);
+                    departmentDAO.update(requestParamsToDepartment(request, response));
                     request.setAttribute("message", "Department " + request.getParameter("name") + " was successfully updated.");
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -69,7 +64,13 @@ public class DepartmentCRUDServlet extends HttpServlet {
                     e.printStackTrace();
                     request.setAttribute("message", "Department " + request.getParameter("name") + " was NOT deleted.");
                     request.setAttribute("e", e.getMessage());
-                } finally {
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                    request.setAttribute("message", "ERROR");
+                    request.setAttribute("e", e.getMessage());
+                    forward(request, response);
+                }
+                finally {
                     request.setAttribute("action", "Deleting...");
                     forward(request, response);
                 }
@@ -81,6 +82,23 @@ public class DepartmentCRUDServlet extends HttpServlet {
                 request.getRequestDispatcher("message.jsp").forward(request, response);
             }
         }
+    }
+
+    private Department requestParamsToDepartment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Department newDepartment = new Department();
+        try {
+            if ("update".equals(request.getParameter("action").toLowerCase())) {
+                newDepartment.setId(Long.parseLong(request.getParameter("id")));
+            }
+            newDepartment.setName(request.getParameter("name"));
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            request.setAttribute("message", "ERROR");
+            request.setAttribute("e", e.getMessage());
+            forward(request, response);
+        }
+        return newDepartment;
     }
 
     private void forward(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
