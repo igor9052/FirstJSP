@@ -9,7 +9,7 @@
     <input type="hidden" name="id" value="${param.id}" readonly/>
     <input type="hidden" name="action" value="update"/>
     <input type="submit" value="Save"/>
-    <a href="listDepartment.jsp"><input type="button" value="Cancel"/></a>
+    <a href="ListDepartment"><input type="button" value="Cancel"/></a>
   </form>
 
 </section>

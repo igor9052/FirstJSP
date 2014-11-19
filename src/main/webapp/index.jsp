@@ -17,7 +17,7 @@
         </p>
 
         <p>
-            <a href="pages/listDepartment.jsp"><input type="button" value="List of departments"/></a>
+            <a href="pages/ListDepartment"><input type="button" value="List of departments"/></a>
         </p>
     </section>
     <!-- content section end -->

@@ -9,7 +9,7 @@
 
     <input type="submit" value="Save"/>
     <input type="hidden" name="action" value="create"/>
-    <a href="listDepartment.jsp"><input type="button" value="Cancel"/></a>
+    <a href="DepartmentList"><input type="button" value="Cancel"/></a>
   </form>
 </section>
 <!-- content section end -->

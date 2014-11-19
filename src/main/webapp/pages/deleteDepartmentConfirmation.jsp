@@ -11,7 +11,7 @@
     <input type="hidden" name="action" value="delete"/>
     <input type="submit" value="Delete"/>
   </form>
-  <a href="listDepartment.jsp"><input type="button" value="Cancel"/></a>
+  <a href="DepartmentList"><input type="button" value="Cancel"/></a>
 </section>
 <!-- content section end -->
 

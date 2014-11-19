@@ -102,7 +102,7 @@ public class DepartmentCRUDServlet extends HttpServlet {
     }
 
     private void forward(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "listDepartment.jsp");
+        request.setAttribute("page", "ListDepartment");
         request.getRequestDispatcher("message.jsp").forward(request, response);
     }
 }
